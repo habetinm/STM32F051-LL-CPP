@@ -1,26 +1,29 @@
-#include "SysTyckHandler.hpp"
+#include <cstdint>
+#include "stm32f0xx.h"
+#include "system_stm32f0xx.h"
+#include "SysTickHandler.hpp"
 
-SysTick* SysTick::Instance = 0;
+SysTickHandler* SysTickHandler::instance = nullptr;
 
-SysTick::SysTick() : milliseconds(0) {
+SysTickHandler::SysTickHandler() : milliseconds(0) {
     instance = this;
     SysTick_Config(SystemCoreClock / 1000);
 }
 
-void SysTick::Handler() {
+void SysTickHandler::Handler() {
     milliseconds++;
 }
 
-uint32_t SysTick::GetMilliseconds() const {
+uint32_t SysTickHandler::GetMilliseconds() const {
     return milliseconds;
 }
 
-void SysTick::InterruptHandler() {
+void SysTickHandler::InterruptHandler() {
     if (instance != nullptr) {
         instance->Handler();
     }
 }
 
 extern "C" void SysTick_Handler() {
-    SysTick::InterruptHandler();
+    SysTickHandler::InterruptHandler();
 }

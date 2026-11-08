@@ -1,3 +1,5 @@
+#include "SysTickHandler.hpp"
+
 #define TIMER_0     0
 #define TIMER_1     1
 #define TIMER_2     2
@@ -18,12 +20,16 @@ class Timer {
 public:
     Timer(Timers* timers); 
     void Init();
-    void Set(uint32_t interval_ms);
+    void Set(uint32_t interval_ms, timer_cb cb);
     void Start();
     void Pause();
     void Resume();
     void Loop();
+    void SetCallback(void (*func)());
     uint8_t Started();
+
+public:
+    void (*timer_cb)();
 
 private:
     Timers* timers;
@@ -31,7 +37,7 @@ private:
     uint8_t running;
     uint32_t time;
     uint32_t interval;
-}
+};
 
 class Timers {
 public:
@@ -39,7 +45,9 @@ public:
     Timer* Get();
     void Loop();
 
+public:
+    SysTickHandler systick;
+
 private:
-    SysTick systick;
     Timer timer_array[MAX_TIMERS];
-}
+};
