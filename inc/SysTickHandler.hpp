@@ -1,3 +1,6 @@
+#ifndef SYSTICKHANDLER_HPP
+#define SYSTICKHANDLER_HPP
+
 class SysTickHandler
 {
 public:
@@ -11,3 +14,4 @@ private:
     volatile uint32_t milliseconds;
 };
 
+#endif // SYSTICKHANDLER_HPP
