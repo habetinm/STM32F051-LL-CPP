@@ -1,6 +1,9 @@
 #include <cstdint>
 #include "Timer.hpp"
 
+Timer::Timer() {
+}
+
 Timer::Timer(Timers* timers) :
     timers(timers),
     running(0),
@@ -24,21 +27,21 @@ void Timer::Resume() {
     running = 1;
 }
 
-void Timer::Set(uint32_t interval_ms, Timer::timer_cb cb) {
+void Timer::Set(uint32_t interval_ms, timer_cb cb) {
     interval = interval_ms;
     time = timers->systick.GetMilliseconds();
     interval = interval_ms; 
-    timer_cb = cb;
+    callback = cb;
     used = 1;
 }
 
 void Timer::Loop() {
     if (used) {
         if (running) {
-            if ((timers->systick.getMilliseconds() - time) >= interval) {
+            if ((timers->systick.GetMilliseconds() - time) >= interval) {
                 time = timers->systick.GetMilliseconds();
-                if (timer_cb != 0) {
-                    timr_cb();
+                if (callback != 0) {
+                    callback();
                 }
             }
         }
@@ -46,7 +49,7 @@ void Timer::Loop() {
 }
 
 void Timer::SetCallback(void (*func)()) {
-    timer_cb = func;
+    callback = func;
 }
 
 uint8_t Timer::Paused() {
@@ -66,7 +69,7 @@ Timer* Timers::Get() {
     for (int i = 0; i < MAX_TIMERS; i++) {
 	if (!timer_array[i].used) {
 	    timer_array[i].used = 1;
-	    return timer_array[i];
+	    return &timer_array[i];
 	}
     }
 }

@@ -17,7 +17,10 @@ class Timers; // forward declaration
 class Timer {
     friend class Timers; // timers member has to be accessible from Timers class
 
+    typedef void (*timer_cb)(void);
+
 public:
+    Timer();
     Timer(Timers* timers); 
     void Init();
     void Set(uint32_t interval_ms, timer_cb cb);
@@ -27,9 +30,10 @@ public:
     void Loop();
     void SetCallback(void (*func)());
     uint8_t Started();
+    uint8_t Paused();
 
 public:
-    void (*timer_cb)();
+    timer_cb callback;
 
 private:
     Timers* timers;
@@ -42,6 +46,7 @@ private:
 class Timers {
 public:
     Timers();
+    ~Timers();
     Timer* Get();
     void Loop();
 
