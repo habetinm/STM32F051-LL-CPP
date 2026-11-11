@@ -6,6 +6,7 @@ Timer::Timer() {
 
 Timer::Timer(Timers* timers) :
     timers(timers),
+    context(0),
     running(0),
     used(0),
     interval(0),
@@ -27,10 +28,11 @@ void Timer::Resume() {
     running = 1;
 }
 
-void Timer::Set(uint32_t interval_ms, timer_cb cb) {
+void Timer::Set(uint32_t interval_ms, void* context, timer_cb cb) {
     interval = interval_ms;
     time = timers->systick.GetMilliseconds();
     interval = interval_ms; 
+    context = context;
     callback = cb;
     used = 1;
 }
@@ -67,27 +69,15 @@ Timers::~Timers() {
 
 Timer* Timers::Get() {
     for (int i = 0; i < MAX_TIMERS; i++) {
-	if (!timer_array[i].used) {
-	    timer_array[i].used = 1;
-	    return &timer_array[i];
-	}
+        if (!timer_array[i].used) {
+            timer_array[i].used = 1;
+            return &timer_array[i];
+        }
     }
 }
 
 void Timers::Loop() {
     for (int i = 0; i < MAX_TIMERS; i++) {
         timer_array[i].Loop();
-/*
-	if (timer_array[i].used) {
-	    if (timer_array[i].running) {	
-	        if ((systick.GetMiliseconds() - timer_array[i].time) >= timers_array[i].interval) {
-	            timer_array[i].time = systick.GetMilliseconds();
-	            if (timer_array[i].timer_cb != 0) {
-	                timer_array[i].timer_cb();
-	            }
-	        }
-	    }
-	}
-*/
     }
 }

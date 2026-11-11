@@ -23,7 +23,7 @@ public:
     Timer();
     Timer(Timers* timers); 
     void Init();
-    void Set(uint32_t interval_ms, timer_cb cb);
+    void Set(uint32_t interval_ms, void* context, timer_cb cb);
     void Start();
     void Pause();
     void Resume();
@@ -36,6 +36,7 @@ public:
     timer_cb callback;
 
 private:
+    void* context;
     Timers* timers;
     uint8_t used;
     uint8_t running;
