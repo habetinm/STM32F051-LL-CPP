@@ -28,7 +28,7 @@ public:
     void Pause();
     void Resume();
     void Loop();
-    void SetCallback(void (*func)());
+    //void SetCallback(void (*func)());
     uint8_t Started();
     uint8_t Paused();
 

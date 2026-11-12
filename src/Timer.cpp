@@ -50,9 +50,9 @@ void Timer::Loop() {
     }
 }
 
-void Timer::SetCallback(void (*func)()) {
-    callback = func;
-}
+//void Timer::SetCallback(void (*func)()) {
+//    callback = func;
+//}
 
 uint8_t Timer::Paused() {
     return ~running;

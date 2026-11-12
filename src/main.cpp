@@ -6,11 +6,23 @@
 #include <string.h>
 #include <stdio.h>
 
-typedef void (*TimerCb)(void);
+//typedef void (*TimerCb)(void);
+
+class Class {
+public:
+    Class() {
+
+    };
+
+    static void Callback(void) {
+
+    };
+};
 
 int main(void) {
     Timers timers;
     Timer* timer;
+    Class obj;
 
     /* Enable clock for GPIOC */
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
@@ -38,7 +50,7 @@ int main(void) {
 
     timer = timers.Get();
     timer->Init();
-    timer->Set(100, timer, TimerCb()); // timer is for now just a fake context !!!
+    timer->Set(100, &obj, Class::Callback); // timer is for now just a fake context !!!
 
     while (1) {
         timers.Loop();
