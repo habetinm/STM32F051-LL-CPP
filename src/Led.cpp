@@ -7,16 +7,16 @@
 #include <string.h>
 #include <stdio.h>
 
-Led::Led() {
+Led::Led(Timer* timer) : timer(timer) {
 
 }
 
 void Led::Callback(void* context) {
-    Led* led = static_cast<Led3*>(context);
+    Led* led = static_cast<Led*>(context);
     led->Toggle();
 }
 
-Led3::Led3() {
+Led3::Led3(Timer* timer) : Led(timer) {
     /* Enable clock for GPIOC */
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
 
@@ -36,7 +36,16 @@ void Led3::Toggle() {
     LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
 }
 
-Led4::Led4() {
+void Led3::ChangePeriod() {
+    uint32_t new_period = 0;
+    static uint8_t period_mul = 0;
+    period_mul += 1;
+    period_mul %= 2;
+    new_period = 100 + period_mul * 100;
+    //Timer_Set(TIMER_0, new_period, Led3_Toggle);
+}
+
+Led4::Led4(Timer* timer) : Led(timer) {
     /* Enable clock for GPIOC */
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
 
@@ -54,4 +63,7 @@ Led4::Led4() {
 
 void Led4::Toggle() {
     LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
+}
+
+void Led4::ChangePeriod() {
 }

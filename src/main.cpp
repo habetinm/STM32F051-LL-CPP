@@ -25,7 +25,7 @@ int main(void) {
     Timers timers;
     Timer* timer;
     //Class obj;
-    Led3 led3;
+    Led3 led3(timer);
 
     timer = timers.Get();
     timer->Init();

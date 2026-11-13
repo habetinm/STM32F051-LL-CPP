@@ -1,18 +1,24 @@
 class Led {
 public:
-    Led();
-    virtual void Toggle() = 0;
+    Led(Timer* timer);
+    virtual void Toggle() {};
+    virtual void ChangePeriod() {};
     static void Callback(void* context);
+
+private:
+    Timer* timer;
 };
 
 class Led3 : public Led {
 public:
-    Led3();
-    void Toggle();
+    Led3(Timer* timer);
+    void Toggle() override;
+    void ChangePeriod() override;
 };
 
 class Led4 : public Led {
 public:
-    Led4();
-    void Toggle();
+    Led4(Timer* timer);
+    void Toggle() override;
+    void ChangePeriod() override;
 };
