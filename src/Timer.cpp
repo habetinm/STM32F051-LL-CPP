@@ -43,7 +43,7 @@ void Timer::Loop() {
             if ((timers->systick.GetMilliseconds() - time) >= interval) {
                 time = timers->systick.GetMilliseconds();
                 if (callback != 0) {
-                    callback();
+                    callback(context);
                 }
             }
         }

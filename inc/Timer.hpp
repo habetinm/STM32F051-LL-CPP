@@ -17,7 +17,7 @@ class Timers; // forward declaration
 class Timer {
     friend class Timers; // timers member has to be accessible from Timers class
 
-    typedef void (*timer_cb)(void);
+    typedef void (*timer_cb)(void*);
 
 public:
     Timer();
