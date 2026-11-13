@@ -25,11 +25,12 @@ int main(void) {
     Timers timers;
     Timer* timer;
     //Class obj;
-    Led led;
+    Led3 led3;
 
     timer = timers.Get();
     timer->Init();
-    timer->Set(100, &led, Led::Callback); // timer is for now just a fake context !!!
+    timer->Set(100, &led3, Led3::Callback); // timer is for now just a fake context !!!
+    timer->Start();
 
     while (1) {
         timers.Loop();
