@@ -1,5 +1,9 @@
 #include <cstdint>
+#include <string.h>
 #include "Timer.hpp"
+#include "stm32f0xx.h"
+#include "stm32f0xx_ll_bus.h"
+#include "stm32f0xx_ll_gpio.h"
 
 Timer::Timer() {
 }
@@ -41,9 +45,16 @@ void Timer::Loop() {
     if (used) {
         if (running) {
             if ((timers->systick.GetMilliseconds() - time) >= interval) {
+
                 time = timers->systick.GetMilliseconds();
-                if (callback != 0) {
-                    callback(context);
+                LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
+                if (context != 0) {
+                    LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
+
+                    if (callback != 0) {
+                        //LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
+                        callback(context);
+                    }
                 }
             }
         }
@@ -59,6 +70,7 @@ uint8_t Timer::Paused() {
 }
 
 Timers::Timers() {
+    memset(timer_array, 0, sizeof(timer_array));
     for (int i = 0; i < MAX_TIMERS; i++) {
         timer_array[i].timers = this;
     }
@@ -70,7 +82,7 @@ Timers::~Timers() {
 Timer* Timers::Get() {
     for (int i = 0; i < MAX_TIMERS; i++) {
         if (!timer_array[i].used) {
-            timer_array[i].used = 1;
+            //timer_array[i].used = 1;
             return &timer_array[i];
         }
     }

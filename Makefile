@@ -137,6 +137,9 @@ flash: $(BUILD_DIR)/$(TARGET).elf
 	        -f target/stm32f0x.cfg \
 	        -c "program $< verify reset exit"
 
+load:
+	openocd -f interface/stlink.cfg -f target/stm32f0x.cfg -c "program build/Project.elf verify reset exit"
+
 # --------------------------------------------------
 # Clean
 # --------------------------------------------------
