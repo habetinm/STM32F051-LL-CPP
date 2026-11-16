@@ -12,19 +12,20 @@ int main(void) {
     int x = 0;
     Timers timers;
     Timer* timer;
+    Timer* timer2;
     //Class obj;
     Led3 led3(timer);
-
-
-    //SysTick_Config(SystemCoreClock / 1000);
-
-
-
+    Led4 led4(timer2);
 
     timer = timers.Get();
     timer->Init();
-    timer->Set(400, &led3, Led3::Callback); // timer is for now just a fake context !!!
+    timer->Set(1000, &led3, Led3::Callback); // timer is for now just a fake context !!!
     timer->Start();
+
+    timer2 = timers.Get();
+    timer2->Init();
+    timer2->Set(100, &led4, Led4::Callback); // timer is for now just a fake context !!!
+    timer2->Start();
 
     while (1) {
         timers.Loop();
