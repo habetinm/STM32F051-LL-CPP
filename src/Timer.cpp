@@ -32,11 +32,11 @@ void Timer::Resume() {
     running = 1;
 }
 
-void Timer::Set(uint32_t interval_ms, void* context, timer_cb cb) {
+void Timer::Set(uint32_t interval_ms, void* obj, timer_cb cb) {
     interval = interval_ms;
     time = timers->systick.GetMilliseconds();
     interval = interval_ms; 
-    context = context;
+    context = obj;
     callback = cb;
     used = 1;
 }
@@ -45,14 +45,9 @@ void Timer::Loop() {
     if (used) {
         if (running) {
             if ((timers->systick.GetMilliseconds() - time) >= interval) {
-
                 time = timers->systick.GetMilliseconds();
-                LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
                 if (context != 0) {
-                    LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
-
                     if (callback != 0) {
-                        //LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
                         callback(context);
                     }
                 }
@@ -60,10 +55,6 @@ void Timer::Loop() {
         }
     }
 }
-
-//void Timer::SetCallback(void (*func)()) {
-//    callback = func;
-//}
 
 uint8_t Timer::Paused() {
     return ~running;
