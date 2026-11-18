@@ -4,6 +4,7 @@
 #include "SysTickHandler.hpp"
 #include "Timer.hpp"
 #include "Led.hpp"
+#include "Button.hpp"
 #include <string.h>
 #include <stdio.h>
 
@@ -16,6 +17,7 @@ int main(void) {
     //Class obj;
     Led3 led3(timer);
     Led4 led4(timer2);
+    Button button;
 
     timer = timers.Get();
     timer->Init();
@@ -29,5 +31,6 @@ int main(void) {
 
     while (1) {
         timers.Loop();
+        button.IsPressed();
     }
 }

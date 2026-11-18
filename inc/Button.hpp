@@ -7,7 +7,7 @@ public:
     Button();
     void SetCB(void* obj, button_cb cb);
     void Loop();
-
+    uint8_t IsPressed();
 
 public:
     button_cb callback;

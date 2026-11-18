@@ -44,3 +44,7 @@ void Button::Loop() {
         }
     }
 }
+
+uint8_t Button::IsPressed() {
+    return pressed;
+}
