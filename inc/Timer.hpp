@@ -46,13 +46,13 @@ private:
 
 class Timers {
 public:
-    Timers();
+    Timers(SysTickHandler* systck);
     ~Timers();
     Timer* Get();
     void Loop();
 
 public:
-    SysTickHandler systick;
+    SysTickHandler* systick;
 
 private:
     Timer timer_array[MAX_TIMERS];

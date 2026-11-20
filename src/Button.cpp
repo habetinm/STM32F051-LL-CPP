@@ -4,7 +4,8 @@
 #include "Button.hpp"
 
 
-Button::Button() :
+Button::Button(SysTickHandler* systck) :
+    systick(systck),
     pressed(0),
     context(0) {
 
@@ -22,9 +23,9 @@ void Button::Loop() {
     static uint8_t state = 0;
     static uint32_t milliseconds = 0;
 
-    uint8_t current_state = LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0); //(GPIOA->IDR & GPIO_IDR_0) ? 1 : 0;
+    uint8_t current_state = LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0);
 
-    milliseconds = systick.GetMilliseconds();
+    milliseconds = systick->GetMilliseconds();
 
     // Zaznamenání změny vstupu
     if (current_state != last_state) {
@@ -40,7 +41,12 @@ void Button::Loop() {
         if (button_state == 0) {
             state = !state;
             pressed = state;
-            callback(context, state);
+
+            if (context != 0) {
+                if (callback != 0) {
+                    callback(context, state);
+                }
+            }
         }
     }
 }

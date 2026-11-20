@@ -34,7 +34,7 @@ void Timer::Resume() {
 
 void Timer::Set(uint32_t interval_ms, void* obj, timer_cb cb) {
     interval = interval_ms;
-    time = timers->systick.GetMilliseconds();
+    time = timers->systick->GetMilliseconds();
     interval = interval_ms; 
     context = obj;
     callback = cb;
@@ -44,8 +44,8 @@ void Timer::Set(uint32_t interval_ms, void* obj, timer_cb cb) {
 void Timer::Loop() {
     if (used) {
         if (running) {
-            if ((timers->systick.GetMilliseconds() - time) >= interval) {
-                time = timers->systick.GetMilliseconds();
+            if ((timers->systick->GetMilliseconds() - time) >= interval) {
+                time = timers->systick->GetMilliseconds();
                 if (context != 0) {
                     if (callback != 0) {
                         callback(context);
@@ -60,7 +60,7 @@ uint8_t Timer::Paused() {
     return ~running;
 }
 
-Timers::Timers() {
+Timers::Timers(SysTickHandler* systck) : systick(systck) {
     memset(timer_array, 0, sizeof(timer_array));
     for (int i = 0; i < MAX_TIMERS; i++) {
         timer_array[i].timers = this;

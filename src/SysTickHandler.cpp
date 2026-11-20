@@ -24,6 +24,12 @@ void SysTickHandler::InterruptHandler() {
     }
 }
 
+SysTickHandler& SysTickHandler::GetInstance()
+{
+    static SysTickHandler instance;
+    return instance;
+}
+
 extern "C" void SysTick_Handler() {
     SysTickHandler::InterruptHandler();
 }

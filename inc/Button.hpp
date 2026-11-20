@@ -4,7 +4,7 @@ class Button {
     typedef void (*button_cb)(void*, uint8_t state);
 
 public:
-    Button();
+    Button(SysTickHandler* systck);
     void SetCB(void* obj, button_cb cb);
     void Loop();
     uint8_t IsPressed();
@@ -15,5 +15,5 @@ public:
 private:
     uint8_t pressed;
     void* context;
-    SysTickHandler systick;
+    SysTickHandler* systick;
 };

@@ -1,13 +1,18 @@
 #ifndef SYSTICKHANDLER_HPP
 #define SYSTICKHANDLER_HPP
 
-class SysTickHandler
-{
+class SysTickHandler {
 public:
-    SysTickHandler();
+    //SysTickHandler();
+    static SysTickHandler& GetInstance();
     void Handler();
     uint32_t GetMilliseconds() const;
     static void InterruptHandler();
+
+private:
+    SysTickHandler();
+    SysTickHandler(const SysTickHandler&) = delete;
+    SysTickHandler& operator=(const SysTickHandler&) = delete;
 
 private:
     static SysTickHandler* instance;
@@ -15,3 +20,4 @@ private:
 };
 
 #endif // SYSTICKHANDLER_HPP
+
