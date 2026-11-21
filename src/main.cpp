@@ -11,14 +11,13 @@
 
 int main(void) {
     int x = 0;
-    SysTickHandler* systck = &SysTickHandler::GetInstance();
-    Timers timers(systck);
+    Timers timers(&SysTickHandler::GetInstance());
     Timer* timer;
     Timer* timer2;
     //Class obj;
     Led3 led3(timer);
     Led4 led4(timer2);
-    Button button(systck);
+    Button button(&SysTickHandler::GetInstance());
 
     timer = timers.Get();
     timer->Init();
@@ -34,13 +33,13 @@ int main(void) {
         timers.Loop();
         button.Loop();
         //timer2->Resume();
-/*
+
         if (!button.IsPressed()) {
             timer2->Pause();
         } else {
             timer2->Resume();
         }
-*/
+
     }
 }
 // 321730792/0300

@@ -7,8 +7,14 @@
 Button::Button(SysTickHandler* systck) :
     systick(systck),
     pressed(0),
-    context(0) {
+    context(0),
+    callback(0) {
 
+    /* Enable clock for GPIOA */
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
+
+    /* Configure PA0 as input */
+    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_0, LL_GPIO_MODE_INPUT);
 }
 
 void Button::SetCB(void* obj, button_cb cb) {
@@ -21,11 +27,8 @@ void Button::Loop() {
     static uint8_t button_state = 1;
     static uint32_t last_change_time = 0;
     static uint8_t state = 0;
-    static uint32_t milliseconds = 0;
-
+    uint32_t milliseconds = SysTickHandler::GetInstance().GetMilliseconds();
     uint8_t current_state = LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0);
-
-    milliseconds = systick->GetMilliseconds();
 
     // Zaznamenání změny vstupu
     if (current_state != last_state) {

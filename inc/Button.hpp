@@ -9,10 +9,8 @@ public:
     void Loop();
     uint8_t IsPressed();
 
-public:
-    button_cb callback;
-
 private:
+    button_cb callback;
     uint8_t pressed;
     void* context;
     SysTickHandler* systick;
