@@ -21,12 +21,12 @@ int main(void) {
 
     timer = timers.Get();
     timer->Init();
-    timer->Set(1000, &led3, Led3::Callback); // timer is for now just a fake context !!!
+    timer->Set(1000, &led3, Led3::Callback);
     timer->Start();
 
     timer2 = timers.Get();
     timer2->Init();
-    timer2->Set(100, &led4, Led4::Callback); // timer is for now just a fake context !!!
+    timer2->Set(100, &led4, Led4::Callback);
     timer2->Start();
 
     while (1) {

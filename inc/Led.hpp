@@ -1,3 +1,6 @@
+#ifndef LED_HPP_INCLUDED
+#define LED_HPP_INCLUDED
+
 class Led {
 public:
     Led(Timer* timer);
@@ -22,3 +25,5 @@ public:
     void Toggle() override;
     void ChangePeriod() override;
 };
+
+#endif // LED_HPP_INCLUDED

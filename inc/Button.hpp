@@ -1,3 +1,6 @@
+#ifndef BUTTON_HPP_INCLUDED
+#define BUTTON_HPP_INCLUDED
+
 #include "SysTickHandler.hpp"
 
 class Button {
@@ -30,3 +33,5 @@ private:
     uint32_t last_change_time;
     uint32_t milliseconds;
 };
+
+#endif // BUTTON_HPP_INCLUDED

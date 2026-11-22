@@ -1,3 +1,6 @@
+#ifndef TIMER_HPP_INCLUDED
+#define TIMER_HPP_INCLUDED
+
 #include "SysTickHandler.hpp"
 
 #define TIMER_0     0
@@ -57,3 +60,5 @@ public:
 private:
     Timer timer_array[MAX_TIMERS];
 };
+
+#endif // TIMER_HPP_INCLUDED
