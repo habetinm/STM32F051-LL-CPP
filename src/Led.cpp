@@ -14,6 +14,7 @@ Led::Led(Timer* timer) : timer(timer) {
 void Led::Callback(void* context) {
     Led* led = static_cast<Led*>(context);
     led->Toggle();
+    //led->ChangePeriod();
 }
 
 Led3::Led3(Timer* timer) : Led(timer) {

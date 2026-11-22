@@ -4,8 +4,8 @@
 class Led {
 public:
     Led(Timer* timer);
-    virtual void Toggle() {};
-    virtual void ChangePeriod() {};
+    virtual void Toggle() = 0; // has to be virtual because of the calling in Led::Callback
+    virtual void ChangePeriod() = 0;
     static void Callback(void* context);
 
 private:
