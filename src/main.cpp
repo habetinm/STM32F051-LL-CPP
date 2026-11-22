@@ -2,6 +2,7 @@
 #include "Timer.hpp"
 #include "Led.hpp"
 #include "Button.hpp"
+#include "Uart.hpp"
 
 
 int main(void) {
@@ -12,6 +13,7 @@ int main(void) {
     Led3 led3(timer);
     Led4 led4(timer2);
     UserButton button(&SysTickHandler::GetInstance());
+    UART_1 uart(115200);
 
     timer = timers.Get();
     timer->Init();
@@ -22,6 +24,8 @@ int main(void) {
     timer2->Init();
     timer2->Set(100, &led4, Led4::Callback);
     timer2->Start();
+
+    uart.WriteLine("Start");
 
     while (1) {
         timers.Loop();
