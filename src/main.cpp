@@ -17,7 +17,7 @@ int main(void) {
     //Class obj;
     Led3 led3(timer);
     Led4 led4(timer2);
-    Button button(&SysTickHandler::GetInstance());
+    UserButton button(&SysTickHandler::GetInstance());
 
     timer = timers.Get();
     timer->Init();
