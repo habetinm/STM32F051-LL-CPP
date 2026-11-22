@@ -22,5 +22,11 @@ public:
     uint8_t IsPressed();
 
 private:
+    uint8_t last_state;
+    uint8_t button_state;
+    uint8_t state;
+    uint8_t current_state;
     uint8_t pressed;
+    uint32_t last_change_time;
+    uint32_t milliseconds;
 };
