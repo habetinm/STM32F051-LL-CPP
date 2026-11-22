@@ -1,12 +1,7 @@
 #include "stm32f0xx.h"
-#include "stm32f0xx_ll_bus.h"
-#include "stm32f0xx_ll_gpio.h"
-#include "SysTickHandler.hpp"
 #include "Timer.hpp"
 #include "Led.hpp"
 #include "Button.hpp"
-#include <string.h>
-#include <stdio.h>
 
 
 int main(void) {
@@ -14,7 +9,6 @@ int main(void) {
     Timers timers(&SysTickHandler::GetInstance());
     Timer* timer;
     Timer* timer2;
-    //Class obj;
     Led3 led3(timer);
     Led4 led4(timer2);
     UserButton button(&SysTickHandler::GetInstance());
@@ -32,7 +26,6 @@ int main(void) {
     while (1) {
         timers.Loop();
         button.Loop();
-        //timer2->Resume();
 
         if (!button.IsPressed()) {
             timer2->Pause();
