@@ -39,12 +39,12 @@ public:
     timer_cb callback;
 
 private:
-    void* context;
     Timers* timers;
-    uint8_t used;
+    void* context;
     uint8_t running;
-    uint32_t time;
+    uint8_t used;
     uint32_t interval;
+    uint32_t time;
 };
 
 class Timers {

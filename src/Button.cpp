@@ -7,7 +7,8 @@
 Button::Button(SysTickHandler* systck) :
     systick(systck),
     context(0),
-    callback(0) {
+    callback(0),
+    pressed(0) {
 }
 
 void Button::SetCB(void* obj, button_cb cb) {
@@ -15,13 +16,17 @@ void Button::SetCB(void* obj, button_cb cb) {
     callback = cb;
 }
 
+uint8_t Button::IsPressed() {
+    return pressed;
+}
+
 UserButton::UserButton(SysTickHandler* systck) :
     Button(systck),
-    pressed(0),
     last_state(0),
     button_state(0),
+    state(0),
     last_change_time(0),
-    state(0) {
+    milliseconds(0) {
 
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
     LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_0, LL_GPIO_MODE_INPUT);
@@ -55,6 +60,6 @@ void UserButton::Loop() {
     }
 }
 
-uint8_t UserButton::IsPressed() {
-    return pressed;
-}
+//uint8_t UserButton::IsPressed() {
+//    return pressed;
+//}

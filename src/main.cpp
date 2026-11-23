@@ -6,10 +6,9 @@
 
 
 int main(void) {
-    int x = 0;
     Timers timers(&SysTickHandler::GetInstance());
-    Timer* timer;
-    Timer* timer2;
+    Timer* timer = 0;
+    Timer* timer2 = 0;
     Led3 led3(timer);
     Led4 led4(timer2);
     UserButton button(&SysTickHandler::GetInstance());

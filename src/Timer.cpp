@@ -61,7 +61,7 @@ uint8_t Timer::Paused() {
 }
 
 Timers::Timers(SysTickHandler* systck) : systick(systck) {
-    memset(timer_array, 0, sizeof(timer_array));
+    memset((void*)timer_array, 0, sizeof(timer_array));
     for (int i = 0; i < MAX_TIMERS; i++) {
         timer_array[i].timers = this;
     }
@@ -71,12 +71,15 @@ Timers::~Timers() {
 }
 
 Timer* Timers::Get() {
+    Timer* timer = 0;
     for (int i = 0; i < MAX_TIMERS; i++) {
         if (!timer_array[i].used) {
             //timer_array[i].used = 1;
-            return &timer_array[i];
+            timer = &timer_array[i];
+            break;
         }
     }
+    return timer;
 }
 
 void Timers::Loop() {

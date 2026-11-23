@@ -6,8 +6,7 @@
 #include "system_stm32f0xx.h"
 
 
-UART_1::UART_1(uint32_t baudrate)
-    : Uart(baudrate) {
+UART_1::UART_1(uint32_t baudrate) {
     // Clock GPIOA
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
 
@@ -34,10 +33,6 @@ UART_1::UART_1(uint32_t baudrate)
     LL_USART_SetHWFlowCtrl(USART1, LL_USART_HWCONTROL_NONE);
 
     LL_USART_Enable(USART1);
-}
-
-void UART_1::Init(uint32_t baudrate) {
-
 }
 
 void UART_1::WriteLine(const char* text) {

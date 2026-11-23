@@ -38,11 +38,11 @@ void Led3::Toggle() {
 }
 
 void Led3::ChangePeriod() {
-    uint32_t new_period = 0;
+    //uint32_t new_period = 0;
     static uint8_t period_mul = 0;
     period_mul += 1;
     period_mul %= 2;
-    new_period = 100 + period_mul * 100;
+    //new_period = 100 + period_mul * 100;
     //Timer_Set(TIMER_0, new_period, Led3_Toggle);
 }
 

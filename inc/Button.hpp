@@ -10,26 +10,27 @@ public:
     Button(SysTickHandler* systck);
     void SetCB(void* obj, button_cb cb);
     void Loop() {};
-    uint8_t IsPressed() {};
+    uint8_t IsPressed();
 
 protected:
-    button_cb callback;
-    void* context;
     SysTickHandler* systick;
+    void* context;
+    button_cb callback;
+    uint8_t pressed;
 };
 
 class UserButton : public Button {
 public:
     UserButton(SysTickHandler* systck);
     void Loop();
-    uint8_t IsPressed();
+    //uint8_t IsPressed();
 
 private:
     uint8_t last_state;
     uint8_t button_state;
     uint8_t state;
     uint8_t current_state;
-    uint8_t pressed;
+    //uint8_t pressed;
     uint32_t last_change_time;
     uint32_t milliseconds;
 };
