@@ -8,7 +8,10 @@ public:
     virtual void ChangePeriod() = 0;
     static void Callback(void* context);
 
-private:
+public:
+    uint16_t contextModif;
+    
+protected:
     Timer* timer;
 };
 

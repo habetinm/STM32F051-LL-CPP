@@ -7,14 +7,19 @@
 #include <string.h>
 #include <stdio.h>
 
-Led::Led(Timer* timer) : timer(timer) {
-
+Led::Led(Timer* timer) : 
+    timer(timer),
+    contextModif(0) {
 }
 
 void Led::Callback(void* context) {
     Led* led = static_cast<Led*>(context);
-    led->Toggle();
-    //led->ChangePeriod();
+    if (!led->contextModif) {
+        led->Toggle();
+    } else {
+        led->ChangePeriod();
+        led->contextModif = 0;
+    }
 }
 
 Led3::Led3(Timer* timer) : Led(timer) {
@@ -38,12 +43,13 @@ void Led3::Toggle() {
 }
 
 void Led3::ChangePeriod() {
-    //uint32_t new_period = 0;
+    uint32_t new_period = 0;
     static uint8_t period_mul = 0;
     period_mul += 1;
     period_mul %= 2;
-    //new_period = 100 + period_mul * 100;
-    //Timer_Set(TIMER_0, new_period, Led3_Toggle);
+    new_period = 100 + period_mul * 100;
+    contextModif = 1;
+    timer->Set(new_period, this, Led3::Callback);
 }
 
 Led4::Led4(Timer* timer) : Led(timer) {

@@ -60,6 +60,3 @@ void UserButton::Loop() {
     }
 }
 
-//uint8_t UserButton::IsPressed() {
-//    return pressed;
-//}

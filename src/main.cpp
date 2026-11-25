@@ -9,6 +9,7 @@ int main(void) {
     Timers timers(&SysTickHandler::GetInstance());
     Timer* timer = 0;
     Timer* timer2 = 0;
+    Timer* timer3 = 0;
     Led3 led3(timer);
     Led4 led4(timer2);
     UserButton button(&SysTickHandler::GetInstance());
@@ -23,6 +24,12 @@ int main(void) {
     timer2->Init();
     timer2->Set(100, &led4, Led4::Callback);
     timer2->Start();
+
+    timer3 = timers.Get();
+    timer3->Init();
+    led3.contextModif = 1;
+    timer3->Set(2000, &led3, Led3::Callback);
+    timer3->Start();
 
     uart.WriteLine("Start");
 

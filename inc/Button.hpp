@@ -9,7 +9,7 @@ class Button {
 public:
     Button(SysTickHandler* systck);
     void SetCB(void* obj, button_cb cb);
-    void Loop() {};
+    virtual void Loop();
     uint8_t IsPressed();
 
 protected:
@@ -22,15 +22,13 @@ protected:
 class UserButton : public Button {
 public:
     UserButton(SysTickHandler* systck);
-    void Loop();
-    //uint8_t IsPressed();
+    void Loop() override;
 
 private:
     uint8_t last_state;
     uint8_t button_state;
     uint8_t state;
     uint8_t current_state;
-    //uint8_t pressed;
     uint32_t last_change_time;
     uint32_t milliseconds;
 };
