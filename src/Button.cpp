@@ -4,8 +4,7 @@
 #include "Button.hpp"
 
 
-Button::Button(SysTickHandler* systck) :
-    systick(systck),
+Button::Button() :
     context(0),
     callback(0),
     pressed(0) {
@@ -20,8 +19,8 @@ uint8_t Button::IsPressed() {
     return pressed;
 }
 
-UserButton::UserButton(SysTickHandler* systck) :
-    Button(systck),
+UserButton::UserButton() :
+    Button(),
     last_state(0),
     button_state(0),
     state(0),

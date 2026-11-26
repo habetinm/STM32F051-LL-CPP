@@ -7,13 +7,12 @@ class Button {
     typedef void (*button_cb)(void*, uint8_t state);
 
 public:
-    Button(SysTickHandler* systck);
+    Button();
     void SetCB(void* obj, button_cb cb);
     virtual void Loop();
     uint8_t IsPressed();
 
 protected:
-    SysTickHandler* systick;
     void* context;
     button_cb callback;
     uint8_t pressed;
@@ -21,7 +20,7 @@ protected:
 
 class UserButton : public Button {
 public:
-    UserButton(SysTickHandler* systck);
+    UserButton();
     void Loop() override;
 
 private:
