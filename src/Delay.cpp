@@ -2,8 +2,6 @@
 #include "SysTickHandler.hpp"
 
 
-Delay* Delay::instance = nullptr;
-
 Delay::Delay() :
     milliseconds(0),
     last_ms(0),
@@ -11,7 +9,7 @@ Delay::Delay() :
     done(0) {
 }
 
-uint8_t Delay::Delay_ms(uint32_t interval_ms) {
+uint8_t Delay::Interval(uint32_t interval_ms) {
     uint8_t ret = 0;
     delay_ms = interval_ms;
     if (done) {
@@ -30,10 +28,4 @@ void Delay::Loop() {
         last_ms = curr_ms;
         done = 1;
     }
-}
-
-Delay& Delay::GetInstance()
-{
-    static Delay instance;
-    return instance;
 }

@@ -23,12 +23,12 @@ int main(void) {
     timer->Init();
     timer->Set(1000, &led3, Led3::Callback);
     timer->Start();
-
+/*
     timer2 = timers->Get();
     timer2->Init();
     timer2->Set(50, &led4, Led4::Callback);
     timer2->Start();
-
+*/
     timer3 = timers->Get();
     timer3->Init();
     timer3->Set(2100, &led3, Led3::Callback);
@@ -51,20 +51,23 @@ int main(void) {
 
     uart.WriteLine("Start");
 
+    Delay delay;
+
     while (1) {
         timers->Loop();
         button.Loop();
-        Delay::GetInstance().Loop();
+        delay.Loop();
 
-        //if (Delay::GetInstance().Delay_ms(1000)) {
-            //led4.Toggle();
-          
+        if (delay.Interval(2000)) {
+            led4.Toggle();
+/*          
             if (!button.IsPressed()) {
                  timer2->Pause();
-             } else {
+            } else {
                 timer2->Resume();
             }
-        //}
+*/                
+        }
     }
 }
 // 321730792/0300
