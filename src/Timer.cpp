@@ -60,14 +60,11 @@ uint8_t Timer::Paused() {
     return ~running;
 }
 
-Timers::Timers(SysTickHandler* systck) : systick(systck) {
+Timers::Timers(const SysTickHandler& systck) : systick(&systck) {
     memset((void*)timer_array, 0, sizeof(timer_array));
     for (int i = 0; i < MAX_TIMERS; i++) {
         timer_array[i].timers = this;
     }
-}
-
-Timers::~Timers() {
 }
 
 Timer* Timers::Get() {
@@ -86,4 +83,10 @@ void Timers::Loop() {
     for (int i = 0; i < MAX_TIMERS; i++) {
         timer_array[i].Loop();
     }
+}
+
+Timers& Timers::GetInstance()
+{
+    static Timers instance(SysTickHandler::GetInstance());
+    return instance;
 }

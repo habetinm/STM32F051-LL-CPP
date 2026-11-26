@@ -14,12 +14,12 @@ Led::Led(Timer* timer) :
 
 void Led::Callback(void* context) {
     Led* led = static_cast<Led*>(context);
-    if (!led->contextModif) {
+    //if (!led->contextModif) {
         led->Toggle();
-    } else {
-        led->ChangePeriod();
-        led->contextModif = 0;
-    }
+    //} else {
+    //    led->ChangePeriod();
+    //    led->contextModif = 0;
+    //}
 }
 
 Led3::Led3(Timer* timer) : Led(timer) {

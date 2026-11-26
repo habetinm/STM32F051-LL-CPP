@@ -49,15 +49,22 @@ private:
 
 class Timers {
 public:
-    Timers(SysTickHandler* systck);
-    ~Timers();
+    static Timers& GetInstance();
+    //Timers(SysTickHandler* systck);
+    //~Timers();
     Timer* Get();
     void Loop();
 
+private:
+    Timers();
+    Timers(const SysTickHandler&);
+    Timers& operator=(const SysTickHandler&) = delete;
+
 public:
-    SysTickHandler* systick;
+    const SysTickHandler* systick;
 
 private:
+    static Timers* instance;
     Timer timer_array[MAX_TIMERS];
 };
 
