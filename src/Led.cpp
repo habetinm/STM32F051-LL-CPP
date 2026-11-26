@@ -7,8 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
-Led::Led() : 
-    contextModif(0) {
+Led::Led() {
 }
 
 void Led::Callback(void* context) {

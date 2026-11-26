@@ -6,9 +6,6 @@ public:
     Led();
     virtual void Toggle() = 0; // has to be virtual because of the calling in Led::Callback
     static void Callback(void* context);
-
-public:
-    uint16_t contextModif;
 };
 
 class Led3 : public Led {
