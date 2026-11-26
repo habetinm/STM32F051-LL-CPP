@@ -3,30 +3,24 @@
 
 class Led {
 public:
-    Led(Timer* timer);
+    Led();
     virtual void Toggle() = 0; // has to be virtual because of the calling in Led::Callback
-    virtual void ChangePeriod() = 0;
     static void Callback(void* context);
 
 public:
     uint16_t contextModif;
-    
-protected:
-    Timer* timer;
 };
 
 class Led3 : public Led {
 public:
-    Led3(Timer* timer);
+    Led3();
     void Toggle() override;
-    void ChangePeriod() override;
 };
 
 class Led4 : public Led {
 public:
-    Led4(Timer* timer);
+    Led4();
     void Toggle() override;
-    void ChangePeriod() override;
 };
 
 #endif // LED_HPP_INCLUDED

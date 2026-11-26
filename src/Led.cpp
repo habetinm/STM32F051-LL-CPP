@@ -7,8 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
-Led::Led(Timer* timer) : 
-    timer(timer),
+Led::Led() : 
     contextModif(0) {
 }
 
@@ -22,7 +21,7 @@ void Led::Callback(void* context) {
     //}
 }
 
-Led3::Led3(Timer* timer) : Led(timer) {
+Led3::Led3() : Led() {
     /* Enable clock for GPIOC */
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
 
@@ -42,17 +41,7 @@ void Led3::Toggle() {
     LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_9);
 }
 
-void Led3::ChangePeriod() {
-    uint32_t new_period = 0;
-    static uint8_t period_mul = 0;
-    period_mul += 1;
-    period_mul %= 2;
-    new_period = 100 + period_mul * 100;
-    contextModif = 1;
-    timer->Set(new_period, this, Led3::Callback);
-}
-
-Led4::Led4(Timer* timer) : Led(timer) {
+Led4::Led4() : Led() {
     /* Enable clock for GPIOC */
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
 
@@ -72,5 +61,3 @@ void Led4::Toggle() {
     LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_8);
 }
 
-void Led4::ChangePeriod() {
-}

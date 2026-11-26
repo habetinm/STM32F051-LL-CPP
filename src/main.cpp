@@ -10,8 +10,8 @@ int main(void) {
     Timer* timer = 0;
     Timer* timer2 = 0;
     Timer* timer3 = 0;
-    Led3 led3(timer);
-    Led4 led4(timer2);
+    Led3 led3;
+    Led4 led4;
     UserButton button;
     UART_1 uart(115200);
 
