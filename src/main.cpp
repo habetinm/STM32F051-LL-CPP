@@ -57,19 +57,19 @@ int main(void) {
         button.Loop();
         DelayPool::GetInstance().Loop();
 
-        //if (delay->Delay_ms(500)) {
-        //    led4.Toggle();
+        if (delay->Delay_ms(500)) {
+            led4.Toggle();
+        }
           
-            if (!button.IsPressed()) {
-                 timer2->Pause();
-            } else {
-                timer2->Resume();
-            }
-        //}
+        if (!button.IsPressed()) {
+            timer2->Pause();
+        } else {
+            timer2->Resume();
+        }
 
-        //if (delay2->Delay_ms(200)) {
-        //    led3.Toggle();
-        //}
+        if (delay2->Delay_ms(200)) {
+            led3.Toggle();
+        }
     }
 }
 // 321730792/0300
