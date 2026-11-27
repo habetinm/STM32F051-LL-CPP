@@ -7,7 +7,6 @@
 
 
 int main(void) {
-    Timers* timers = &Timers::GetInstance();
     Timer* timer = 0;
     Timer* timer2 = 0;
     Timer* timer3 = 0;
@@ -18,33 +17,35 @@ int main(void) {
     Led4 led4;
     UserButton button;
     UART_1 uart(115200);
+    Delay* delay = DelayPool::GetInstance().Get();
+    Delay* delay2 = DelayPool::GetInstance().Get();
 
-    timer = timers->Get();
+    timer = Timers::GetInstance().Get();
     timer->Init();
     timer->Set(1000, &led3, Led3::Callback);
     timer->Start();
 
-    timer2 = timers->Get();
+    timer2 = Timers::GetInstance().Get();
     timer2->Init();
     timer2->Set(50, &led4, Led4::Callback);
     timer2->Start();
 
-    timer3 = timers->Get();
+    timer3 = Timers::GetInstance().Get();
     timer3->Init();
     timer3->Set(2100, &led3, Led3::Callback);
     timer3->Start();
 
-    timer4 = timers->Get();
+    timer4 = Timers::GetInstance().Get();
     timer4->Init();
     timer4->Set(2200, &led3, Led3::Callback);
     timer4->Start();
 
-    timer5 = timers->Get();
+    timer5 = Timers::GetInstance().Get();
     timer5->Init();
     timer5->Set(2300, &led3, Led3::Callback);
     timer5->Start();
 
-    timer6 = timers->Get();
+    timer6 = Timers::GetInstance().Get();
     timer6->Init();
     timer6->Set(2400, &led3, Led3::Callback);
     timer6->Start();
@@ -52,18 +53,22 @@ int main(void) {
     uart.WriteLine("Start");
 
     while (1) {
-        timers->Loop();
+        Timers::GetInstance().Loop();
         button.Loop();
-        Delay::GetInstance().Loop();
+        DelayPool::GetInstance().Loop();
 
-        //if (Delay::GetInstance().Delay_ms(1000)) {
-            //led4.Toggle();
+        //if (delay->Delay_ms(500)) {
+        //    led4.Toggle();
           
             if (!button.IsPressed()) {
                  timer2->Pause();
-             } else {
+            } else {
                 timer2->Resume();
             }
+        //}
+
+        //if (delay2->Delay_ms(200)) {
+        //    led3.Toggle();
         //}
     }
 }
