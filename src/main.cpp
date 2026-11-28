@@ -4,6 +4,7 @@
 #include "Button.hpp"
 #include "Uart.hpp"
 #include "Delay.hpp"
+#include "Scheduler.hpp"
 
 
 int main(void) {
@@ -17,6 +18,8 @@ int main(void) {
     Led4 led4;
     UserButton button;
     UART_1 uart(115200);
+
+    Scheduler::GetInstance();
     Delay* delay = DelayPool::GetInstance().Get();
     Delay* delay2 = DelayPool::GetInstance().Get();
 
@@ -52,7 +55,13 @@ int main(void) {
 
     uart.WriteLine("Start");
 
+    Scheduler::GetInstance().RegisterTask<UserButton, &UserButton::Loop>(&button, 1);
+    Scheduler::GetInstance().RegisterTask<Timers, &Timers::Loop>(&Timers::GetInstance(), 1);
+    Scheduler::GetInstance().RegisterTask<DelayPool, &DelayPool::Loop>(&DelayPool::GetInstance(), 1);
+
     while (1) {
+        //Scheduler::GetInstance().Schedule();
+
         Timers::GetInstance().Loop();
         button.Loop();
         DelayPool::GetInstance().Loop();

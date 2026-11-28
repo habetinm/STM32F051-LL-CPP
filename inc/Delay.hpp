@@ -3,7 +3,6 @@
 
 #include "stm32f0xx.h"
 
-class DelayPool;
 
 class Delay {
     friend class DelayPool;
